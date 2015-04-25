@@ -2,6 +2,11 @@
 
 class ApiController extends \BaseController {
 
+        protected $adLdap;
+    
+        public function __construct() {
+            $this->adLdap = new adLDAP($config);
+        }
 	/**
 	 * Display a listing of the resource.
 	 *
