@@ -17,10 +17,25 @@ class ApiController extends \BaseController {
 	{
             try {
                 $result = $this->adLdap->user()->info($id);
-                /*return Response::json(array(
-                    'code' => 200,
-                    'result' => 
-                ));*/
+                
+                if (!$result)
+                {
+                    return Response::json(array(
+                        'code' => 404,
+                        'message' => 'Username not found'
+                    ),404);                    
+                }
+                else
+                {
+                    return Response::json(array(
+                        'code' => 200,
+                        'result' => array(
+                            'username' => chop($result[0]['displayname'][0]),
+                            'samaccountname' => chop($result[0]['samaccountname'][0]),
+                            'mail' => chop($result[0]['mail'][0])
+                        )
+                    ),200);
+                }
             } catch (Exception $ex) {
                 return Response::json(array(
                   'code' => 500,
