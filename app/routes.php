@@ -18,5 +18,6 @@ Route::get('/', function()
 
 Route::group(array('prefix' => 'api/v1'), function()
 {
-    Route::resource('url', 'ApiController');
+    Route::get('info/{id}', ['uses' => 'ApiController@info']);
+    Route::put('changePassword', ['uses' => 'ApiController@changePassword']);
 });

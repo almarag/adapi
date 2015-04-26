@@ -602,7 +602,8 @@ class adLDAP {
             throw new adLDAPException('No LDAP support for PHP.  See: http://www.php.net/ldap');
         }
 
-        return $this->connect();
+        $connect = $this->connect();
+        return $connect;
     }
 
     /**
@@ -625,13 +626,14 @@ class adLDAP {
     {
         // Connect to the AD/LDAP server as the username/password
         $domainController = $this->randomController();
+
         if ($this->useSSL) {
             $this->ldapConnection = ldap_connect("ldaps://" . $domainController, $this->adPort);
         } else {
             $this->ldapConnection = ldap_connect($domainController, $this->adPort);
         }
-               
         // Set some ldap options for talking to AD
+        putenv('LDAPTLS_REQCERT=never');
         ldap_set_option($this->ldapConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($this->ldapConnection, LDAP_OPT_REFERRALS, 0);
         
@@ -667,7 +669,7 @@ class adLDAP {
         if ($this->baseDn == null) {
             $this->baseDn = $this->findBaseDn();   
         }
-        
+
         return true;
     }
     

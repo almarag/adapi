@@ -5,74 +5,54 @@ class ApiController extends \BaseController {
         protected $adLdap;
     
         public function __construct() {
-            $this->adLdap = new adLDAP($config);
+            $this->adLdap = new \adLDAP\adLDAP(Config::get('ad'));        
         }
+        
 	/**
-	 * Display a listing of the resource.
+	 * Get a JSON array with the basic info about a user
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function info($id = null)
 	{
-		//
+            try {
+                $result = $this->adLdap->user()->info($id);
+                /*return Response::json(array(
+                    'code' => 200,
+                    'result' => 
+                ));*/
+            } catch (Exception $ex) {
+                return Response::json(array(
+                  'code' => 500,
+                  'exception' => $ex->getMessage()
+                ),500);
+            }
 	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
+        
+        /**
+         * Changes password for given user
+         * 
+         * @return Response
+         */
+	public function changePassword()
 	{
-		//
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
+            $username = Request::get('username');
+            $password = Request::get('password');
+            try
+            {
+                $this->adLdap->user()->password($username, $password);
+                return Response::json(array(
+                   'code' => 200,
+                   'message' => 'Password updated'
+                ),200);                
+            }
+            catch (Exception $ex)
+            {
+                return Response::json(array(
+                   'code' => 500,
+                   'exception' => $ex->getMessage()
+                ),500);
+            }	
 	}
 
 
@@ -84,8 +64,9 @@ class ApiController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Response::json(array(
+                    'code' => 200,
+                    'message' => 'destroy'
+                ),200);//
 	}
-
-
 }

@@ -217,7 +217,7 @@ class adLDAPUsers {
     */
     public function info($username, $fields = null, $isGUID = false)
     {
-        if ($username === null) { return false; }
+        if ($username === null) { return false; }        
         if (!$this->adldap->getLdapBind()) { return false; }
 
         if ($isGUID === true) {
