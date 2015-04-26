@@ -21,3 +21,9 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::get('info/{id}', ['uses' => 'ApiController@info']);
     Route::put('changePassword', ['uses' => 'ApiController@changePassword']);
 });
+
+Route::group(array('prefix' => 'ui'), function()
+{
+    Route::get('changePassword', ['uses' => 'GuiController@changePassword']);
+});
+
