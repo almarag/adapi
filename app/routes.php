@@ -20,10 +20,11 @@ Route::group(array('prefix' => 'api/v1'), function()
 {
     Route::get('info/{id}', ['uses' => 'ApiController@info']);
     Route::put('changePassword', ['uses' => 'ApiController@changePassword']);
+	Route::get('createUser', ['uses' => 'ApiController@createUser']);
+	Route::get('deleteUser', ['uses' => 'ApiController@deleteUser']);
 });
 
 Route::group(array('prefix' => 'ui'), function()
 {
     Route::get('changePassword', ['uses' => 'GuiController@changePassword']);
 });
-

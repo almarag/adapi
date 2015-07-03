@@ -1,14 +1,15 @@
 <?php
 
 use almarag\adldap\IAdLdapRepository as Ldap;
+use almarag\Exception as Exception;
 
 class ApiController extends \BaseController {
 
-        protected $adLdap;
-    
-        public function __construct(Ldap $adLdap) {
-            $this->adLdap = $adLdap;       
-        }
+    protected $adLdap;
+
+    public function __construct(Ldap $adLdap) {
+        $this->adLdap = $adLdap;       
+    }
         
 	/**
 	 * Get a JSON array with the basic info about a user
@@ -17,18 +18,32 @@ class ApiController extends \BaseController {
 	 */
 	public function info($id = null)
 	{
-            return $this->adLdap->info($id);
+        return $this->adLdap->info($id);
 	}   
         
-        /**
-         * Changes password for given user
-         * 
-         * @return Response
-         */
+    /**
+     * Changes password for given user
+     * 
+     * @return Response
+     */
 	public function changePassword()
 	{
-            $username = Request::get('username');
-            $password = Request::get('password');
-            return $this->adLdap->changePassword($username, $password);
+        $data = Input::all();        
+        $username = $data['username'];
+        $password = $data['password'];
+        
+        return $this->adLdap->changePassword($username, $password);
 	}
+                
+    public function createUser()
+    {
+        $userInfo = array();
+        return $this->adLdap->createUser($userInfo);        
+    }
+        
+    public function deleteUser()
+    {
+        $username = Request::get('username');
+        return $this->adLdap->deleteUser($username);        
+    }        
 }
