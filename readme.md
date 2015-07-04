@@ -1,4 +1,4 @@
-## Active Directory web API 
+# Active Directory web API 
 
 This projects aims to create a generic LDAP/Active Directory webAPI for the following activities:
 
@@ -23,13 +23,28 @@ API uses Laravel and ADLDAP php projects for it's foundations. you can learn mor
 
 ## Usage 
 
-Get user Information:
+### Get user Information:
 
+```javascript
 http://your.tld/api/v1/info/:id
+```
 
 Parameters:
 
+```javascript
 :id - The username that you want to retrieve information
+```
+
+### Change Password
+```javascript
+http://your.tld/api/v1/changePassword
+```
+
+Parameters (uses POST)
+```javascript
+:username - Username to change the password
+:password - New password for the user
+```
 
 
 This project is licensed under the [MIT license](http://opensource.org/licenses/MIT)
