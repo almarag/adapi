@@ -12,10 +12,10 @@ class AdLdapRepository implements IAdLdapRepository {
         $this->adLdap = new \adLDAP\adLDAP(Config::get('ad'));
     }
     
-    public function changePassword($username = null,$password = null) {
+    public function changePassword(ChangePasswordRequest $request) {
         try
         {
-            $this->adLdap->user()->password($username, $password);
+            $this->adLdap->user()->password($request->username, $request->password);
             return Response::json(array(
                'code' => 200,
                'message' => 'Password updated'
@@ -71,12 +71,12 @@ class AdLdapRepository implements IAdLdapRepository {
         App::abort(500,"Not Implemented");
     }
 
-    public function authenticate($username = null, $password = null)
+    public function authenticate(AuthenticateRequest $request)
     {
         App::abort(500,"Not Implemented");
     }
 
-    public function authorize($applicationId = null, $token = null)
+    public function authorize(AuthorizeRequest $request)
     {
         App::abort(500,"Not Implemented");
     }

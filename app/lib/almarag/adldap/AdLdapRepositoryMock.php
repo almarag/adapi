@@ -6,10 +6,10 @@ use App;
 
 class AdLdapRepositoryMock implements IAdLdapRepository {
     
-    public function changePassword($username=null, $password=null) {
+    public function changePassword(ChangePasswordRequest $request) {
         try
         {
-            if ($username == "testuser" && $password != "")
+            if ($request->username == "testuser" && $request->password != "")
             {
                 return Response::json(array(
                    'code' => 200,
@@ -34,10 +34,10 @@ class AdLdapRepositoryMock implements IAdLdapRepository {
 
     }
 
-    public function info($username = null) {
+    public function info(UserRequest $request) {
         try
         {
-            if ($username == "testuser")
+            if ($request->username == "testuser")
             {
                 return Response::json(array(
                             'code' => 200,
@@ -65,7 +65,7 @@ class AdLdapRepositoryMock implements IAdLdapRepository {
         }        
     }
     
-    public function createUser($userInfo = null)
+    public function createUser(UserRequest $request)
     {
         return Response::json(array(
                     'code' => 200,
@@ -73,7 +73,7 @@ class AdLdapRepositoryMock implements IAdLdapRepository {
                ), 200);        
     }
     
-    public function deleteUser($username = null)
+    public function deleteUser(UserRequest $request)
     {
         return Response::json(array(
                     'code' => 200,
@@ -81,17 +81,17 @@ class AdLdapRepositoryMock implements IAdLdapRepository {
                ), 200);   
     }
 
-    public function updateUser($userInfo = array())
+    public function updateUser(UserRequest $request)
     {
         App::abort(500,"Not Implemented");
     }
 
-    public function authenticate($username = null, $password = null)
+    public function authenticate(AuthenticateRequest $request)
     {
         App::abort(500,"Not Implemented");
     }
 
-    public function authorize($applicationId = null, $token = null)
+    public function authorize(AuthorizeRequest $request)
     {
         App::abort(500,"Not Implemented");
     }

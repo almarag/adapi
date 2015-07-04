@@ -1,5 +1,5 @@
 <?php
-
+use almarag\adldap;
 use almarag\adldap\IAdLdapRepository as Ldap;
 use almarag\Exception as Exception;
 
@@ -28,39 +28,68 @@ class ApiController extends \BaseController {
      */
 	public function changePassword()
 	{
-        $data = Input::all();        
-        $username = $data['username'];
-        $password = $data['password'];
+        $data = Input::all();
+        $request = new ChangePasswordRequest();
+        $request->username = $data['username'];
+        $request->password = $data['password'];
         
-        return $this->adLdap->changePassword($username, $password);
+        return $this->adLdap->changePassword($request);
 	}
                 
     public function createUser()
     {
-        $userInfo = array();
-        return $this->adLdap->createUser($userInfo);        
+        $data = Input::all();
+        $request = new UserRequest();
+        $request->username = $data['username'];
+        $request->password = $data['password'];
+        $request->displayName = $data['displayName'];
+        $request->sn = $data['sn'];
+        $request->mail = $data['mail'];
+
+        return $this->adLdap->createUser($request);
     }
         
     public function deleteUser()
     {
-        $username = Request::get('username');
-        return $this->adLdap->deleteUser($username);        
+        $data = Input::all();
+        $request = new UserRequest();
+        $request->username = $data['username'];
+
+        return $this->adLdap->deleteUser($request);
     }
 
 
     public function updateUser()
     {
-        return $this->adLdap->updateUser(array());
+        $data = Input::all();
+        $request = new UserRequest();
+        $request->username = $data['username'];
+        $request->password = $data['password'];
+        $request->displayName = $data['displayName'];
+        $request->sn = $data['sn'];
+        $request->mail = $data['mail'];
+
+        return $this->adLdap->updateUser($request);
     }
 
     public function authorize()
     {
-        $token = null;
-        return $this->adLdap->authorize($token);
+        $data = Input::all();
+        $request = new AuthorizeRequest();
+        $request->token = $data['token'];
+        $request->username = $data['username'];
+        $request->applicationId = $data['applicationId'];
+
+        return $this->adLdap->authorize($request);
     }
 
     public function authenticate()
     {
+        $data = Input::all();
+        $request = new AuthenticateRequest();
+        $request->username = $data['username'];
+        $request->pasword = $data['password'];
+
         return $this->adLdap->authenticate(array());
     }
 }
