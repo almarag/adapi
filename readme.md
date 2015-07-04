@@ -13,7 +13,7 @@ API uses Laravel and ADLDAP php projects for it's foundations. you can learn mor
 
 [http://adldap.sourceforge.net/](http://adldap.sourceforge.net/)
 
-## Installation ans Setup
+## Installation and Setup
 
 1. Copy all the content into your web server site folder
 2. Modify apache/IIS to make app/public folder the root folder for site
