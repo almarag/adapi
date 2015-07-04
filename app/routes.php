@@ -21,7 +21,10 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::get('info/{id}', ['uses' => 'ApiController@info']);
     Route::put('changePassword', ['uses' => 'ApiController@changePassword']);
 	Route::get('createUser', ['uses' => 'ApiController@createUser']);
-	Route::get('deleteUser', ['uses' => 'ApiController@deleteUser']);
+	Route::delete('deleteUser', ['uses' => 'ApiController@deleteUser']);
+    Route::put('updateUser', ['uses' => 'ApiController@updateUser']);
+    Route::post('authenticate', ['uses' => 'ApiController@authenticate']);
+    Route::post('authorize', ['uses' => 'ApiController@authorize']);
 });
 
 Route::group(array('prefix' => 'ui'), function()

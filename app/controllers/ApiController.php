@@ -45,5 +45,22 @@ class ApiController extends \BaseController {
     {
         $username = Request::get('username');
         return $this->adLdap->deleteUser($username);        
-    }        
+    }
+
+
+    public function updateUser()
+    {
+        return $this->adLdap->updateUser(array());
+    }
+
+    public function authorize()
+    {
+        $token = null;
+        return $this->adLdap->authorize($token);
+    }
+
+    public function authenticate()
+    {
+        return $this->adLdap->authenticate(array());
+    }
 }

@@ -65,4 +65,19 @@ class AdLdapRepository implements IAdLdapRepository {
     {
         App::abort(500,"Not Implemented");
     }
+
+    public function updateUser($userInfo = array())
+    {
+        App::abort(500,"Not Implemented");
+    }
+
+    public function authenticate($username = null, $password = null)
+    {
+        App::abort(500,"Not Implemented");
+    }
+
+    public function authorize($applicationId = null, $token = null)
+    {
+        App::abort(500,"Not Implemented");
+    }
 }

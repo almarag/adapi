@@ -80,4 +80,19 @@ class AdLdapRepositoryMock implements IAdLdapRepository {
                     'message' => 'User successfully deleted'
                ), 200);   
     }
+
+    public function updateUser($userInfo = array())
+    {
+        App::abort(500,"Not Implemented");
+    }
+
+    public function authenticate($username = null, $password = null)
+    {
+        App::abort(500,"Not Implemented");
+    }
+
+    public function authorize($applicationId = null, $token = null)
+    {
+        App::abort(500,"Not Implemented");
+    }
 }
