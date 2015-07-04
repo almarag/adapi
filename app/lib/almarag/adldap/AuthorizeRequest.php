@@ -3,7 +3,7 @@
 namespace almarag\adldap;
 
 class AuthorizeRequest extends RepositoryRequest {
-    private $token;
-    private $applicationId;
-    private $username;
+    public $token;
+    public $applicationId;
+    public $username;
 }

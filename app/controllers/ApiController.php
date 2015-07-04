@@ -1,5 +1,8 @@
 <?php
-use almarag\adldap;
+use almarag\adldap\ChangePasswordRequest as ChangePasswordRequest;
+use almarag\adldap\UserRequest as UserRequest;
+use almarag\adldap\AuthenticateRequest as AuthenticateRequest;
+use almarag\adldap\AuthorizeRequest as AuthorizeRequest;
 use almarag\adldap\IAdLdapRepository as Ldap;
 use almarag\Exception as Exception;
 
@@ -28,68 +31,122 @@ class ApiController extends \BaseController {
      */
 	public function changePassword()
 	{
-        $data = Input::all();
-        $request = new ChangePasswordRequest();
-        $request->username = $data['username'];
-        $request->password = $data['password'];
-        
-        return $this->adLdap->changePassword($request);
+        try
+        {
+            $request = new ChangePasswordRequest();
+            $request->username = Request::input('username');
+            $request->password = Request::input('password');
+            return $this->adLdap->changePassword($request);
+        }
+        catch (Exception $ex)
+        {
+            return Response::json(array(
+                'code' => 500,
+                'message' => 'Invalid data: '. $ex->Message
+            ), 500);
+        }
 	}
                 
     public function createUser()
     {
-        $data = Input::all();
-        $request = new UserRequest();
-        $request->username = $data['username'];
-        $request->password = $data['password'];
-        $request->displayName = $data['displayName'];
-        $request->sn = $data['sn'];
-        $request->mail = $data['mail'];
+        try
+        {
+            $request = new UserRequest();
+            $request->username = Request::input('username');
+            $request->password = Request::input('password');
+            $request->displayName = Request::input('displayName');
+            $request->sn = Request::input('sn');
+            $request->mail = Request::input('mail');
 
-        return $this->adLdap->createUser($request);
+            return $this->adLdap->createUser($request);
+        }
+        catch (Exception $ex)
+        {
+            return Response::json(array(
+                'code' => 500,
+                'message' => 'Invalid data: '. $ex->Message
+            ), 500);
+        }
     }
         
     public function deleteUser()
     {
-        $data = Input::all();
-        $request = new UserRequest();
-        $request->username = $data['username'];
+        try
+        {
+            $request = new UserRequest();
+            $request->username = Request::input('username');
 
-        return $this->adLdap->deleteUser($request);
+            return $this->adLdap->deleteUser($request);
+        }
+        catch (Exception $ex)
+        {
+            return Response::json(array(
+                'code' => 500,
+                'message' => 'Invalid data: '. $ex->Message
+            ), 500);
+        }
     }
 
 
     public function updateUser()
     {
-        $data = Input::all();
-        $request = new UserRequest();
-        $request->username = $data['username'];
-        $request->password = $data['password'];
-        $request->displayName = $data['displayName'];
-        $request->sn = $data['sn'];
-        $request->mail = $data['mail'];
+        try
+        {
+            $request = new UserRequest();
+            $request->username = Request::input('username');
+            $request->password = Request::input('password');
+            $request->displayName = Request::input('displayName');
+            $request->sn = Request::input('sn');
+            $request->mail = Request::input('mail');
 
-        return $this->adLdap->updateUser($request);
+            return $this->adLdap->updateUser($request);
+        }
+        catch (Exception $ex)
+        {
+            return Response::json(array(
+            'code' => 500,
+            'message' => 'Invalid data: '. $ex->Message
+            ), 500);
+        }
     }
 
     public function authorize()
     {
-        $data = Input::all();
-        $request = new AuthorizeRequest();
-        $request->token = $data['token'];
-        $request->username = $data['username'];
-        $request->applicationId = $data['applicationId'];
+        try
+        {
+            $request = new AuthorizeRequest();
+            $request->token = Request::input('token');
+            $request->username = Request::input('username');
+            $request->applicationId = Request::input('applicationId');
 
-        return $this->adLdap->authorize($request);
+            return $this->adLdap->authorize($request);
+        }
+        catch (Exception $ex)
+        {
+            return Response::json(array(
+                'code' => 500,
+                'message' => 'Invalid data: '. $ex->Message
+            ), 500);
+        }
     }
 
     public function authenticate()
     {
-        $data = Input::all();
-        $request = new AuthenticateRequest();
-        $request->username = $data['username'];
-        $request->pasword = $data['password'];
+        try
+        {
+            $data = Input::all();
+            $request = new AuthenticateRequest();
+            $request->username = $data['username'];
+            $request->pasword = $data['password'];
 
-        return $this->adLdap->authenticate(array());
+            return $this->adLdap->authenticate(array());
+        }
+        catch (Exception $ex)
+        {
+            return Response::json(array(
+                'code' => 500,
+                'message' => 'Invalid data: '. $ex->Message
+            ), 500);
+        }
     }
 }

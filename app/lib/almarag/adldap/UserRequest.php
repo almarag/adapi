@@ -9,9 +9,9 @@
 namespace almarag\adldap;
 
 class UserRequest extends RepositoryRequest {
-    private $username;
-    private $password;
-    private $displayName;
-    private $sn;
-    private $mail;
+    public $username;
+    public $password;
+    public $displayName;
+    public $sn;
+    public $mail;
 }
